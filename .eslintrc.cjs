@@ -45,7 +45,7 @@ module.exports = {
     "no-unused-vars": "warn",
     "linebreak-style": [
       "error",
-      "unix"
+      "windows"
     ]
   },
 }
