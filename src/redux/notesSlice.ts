@@ -4,7 +4,13 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from './store'
 
 interface INotesState {
-    notes: INote[]
+    notes: INote[];
+}
+
+interface IEditNotesPayloadAction {
+    id: string;
+    hashtags: RegExpMatchArray | [];
+    note: string;
 }
 
 const initialState: INotesState = {
@@ -23,10 +29,24 @@ export const notesSlice = createSlice({
                 return noteObj.id !== action.payload
             })
         },
+        editNotes: (state, action: PayloadAction<IEditNotesPayloadAction>) => {
+            const { hashtags, id, note } = action.payload
+
+            const qq = state.notes.map((noteObj: INote) => {
+                if (noteObj.id === id) {
+                    noteObj.hashtags = hashtags
+                    noteObj.note = note
+                }
+
+                return noteObj
+            })
+
+            state.notes = qq
+        },
     },
 })
 
-export const { addNote, removeNote } = notesSlice.actions
+export const { addNote, removeNote, editNotes } = notesSlice.actions
 
 export const selectNotes = (state: RootState) => state.notes.notes
 

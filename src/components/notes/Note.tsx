@@ -2,14 +2,15 @@ import { ChangeEvent, useState, useRef, useEffect } from 'react'
 import s from './Notes.module.css'
 import { INote } from '../../interfaces/interfaces'
 import { useAppDispatch } from '../../hooks/hooks'
-/* import { useNotesContext } from '../../context/context' */
-import { removeNote } from '../../redux/notesSlice'
+import { editNotes, removeNote } from '../../redux/notesSlice'
 
 interface INoteProps {
     noteObj: INote;
 }
 
 export const Note = ({ noteObj }: INoteProps) => {
+    const dispatch = useAppDispatch()
+
     const [editNum, setEditNum] = useState<string | null>(null)
     const [noteEditValue, setNoteEditValue] = useState<string>(noteObj.note)
 
@@ -20,15 +21,33 @@ export const Note = ({ noteObj }: INoteProps) => {
         setNoteEditValue(e.currentTarget.value)
     }
 
+    const handleStopEditOnClick = () => {
+        const regexp: RegExp = /(?<=(?<!\S)#)[A-Z]+/gi
+        const hashtags: RegExpMatchArray | null = noteEditValue.match(regexp)
+
+        dispatch(editNotes({ id: noteObj.id, hashtags: hashtags || [], note: noteObj.note }))
+        setEditNum(null)
+    }
+
+    const hashtags = noteObj.hashtags.map((hashtag: string, i) => {
+        return (
+            <span key={i}>{hashtag}{' '}</span>
+        )
+    })
+
     if (editNum) {
         noteItem = (
-            <input
-                className={s.addTodoInput}
-                ref={inputRef}
-                value={noteEditValue}
-                onChange={handleItemChange}
-                onBlur={() => setEditNum(null)}
-            />
+            <div>
+                <input
+                    className={s.addTodoInput}
+                    ref={inputRef}
+                    value={noteEditValue}
+                    onChange={handleItemChange}
+                />
+                <button onClick={handleStopEditOnClick}>
+                    Done
+                </button>
+            </div>
         )
     } else {
         noteItem = (
@@ -44,7 +63,16 @@ export const Note = ({ noteObj }: INoteProps) => {
         inputRef.current?.focus()
     }, [noteItem])
 
-    return <div>{noteItem}</div>
+    return (
+        <div>
+            <div>
+                {noteItem}
+            </div>
+            <div>
+                {hashtags || 'No hashtags found'}
+            </div>
+        </div>
+    )
 }
 
 interface NoteDivItemProps {
@@ -56,7 +84,6 @@ interface NoteDivItemProps {
 
 const NoteDivItem = ({ note, itemValue, setEditNum }: NoteDivItemProps) => {
     const dispatch = useAppDispatch()
-    /* const notes = useNotesContext() */
 
     const removeTaskOnClick = (id: string): void => {
         dispatch(removeNote(id))
