@@ -1,27 +1,4 @@
-* {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  background-color: rgb(243, 208, 177);
-}
-
-body {
-  background-color: rgb(255, 244, 234);
-  height: calc(100vh - 30px);
-  margin: 15px;
-  box-shadow: 0 0 10px rgb(161, 130, 100);
-}
-
 .appWrapper {
   font: normal 400 15px/20px 'Roboto', sans-serif;
   color: #151515;
-  width: 100%;
-  height: 100%;
 }

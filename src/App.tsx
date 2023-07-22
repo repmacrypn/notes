@@ -2,16 +2,19 @@
 /* eslint-disable indent */
 
 import { FC } from 'react'
+import { MantineProvider } from '@mantine/core'
 import './App.css'
 import { Header } from './components/header/Header'
-import NotesMain from './components/notes/NotesMain'
+import { NotesMain } from './components/notes/NotesMain'
 
 const App: FC = () => {
   return (
-    <div className='appWrapper'>
-      <Header />
-      <NotesMain />
-    </div>
+    <MantineProvider withGlobalStyles withNormalizeCSS>
+      <div className='appWrapper'>
+        <Header />
+        <NotesMain />
+      </div>
+    </MantineProvider>
   )
 }
 

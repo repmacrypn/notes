@@ -1,0 +1,6 @@
+.notesWrapper {
+    height: calc(100vh - 140px);
+    border-radius: 10px;
+    border: 1px solid black;
+    margin: 0 12px;
+}
