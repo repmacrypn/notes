@@ -2,21 +2,22 @@ import { ChangeEvent, useState } from 'react'
 import { Group, Button, TextInput } from '@mantine/core'
 import { nanoid } from '@reduxjs/toolkit'
 import s from './Notes.module.css'
+import { NotesList } from './NotesList'
 import { useAppDispatch } from '../../hooks/hooks'
 import { addNote } from '../../redux/notesSlice'
 import { INote } from '../../interfaces/interfaces'
 
 export const NotesMain = () => {
     return (
-        <div>
-            <TaskAdder />
+        <div className={s.notesWrapper}>
+            <NoteAdder />
+            <NotesList />
         </div>
     )
 }
 
-export const TaskAdder = () => {
+export const NoteAdder = () => {
     const [noteValue, setNoteValue] = useState<string>('')
-    const [hashtags, setHashTags] = useState<string[]>([])
 
     const dispatch = useAppDispatch()
 
@@ -25,16 +26,19 @@ export const TaskAdder = () => {
     }
 
     const addTaskOnClick = (): void => {
-        const newTask: INote = { id: nanoid(), note: noteValue, hashtags }
+        const regexp: RegExp = /(?<=(?<!\S)#)[A-Z]+/gi
+        const hashtags: RegExpMatchArray | null = noteValue.match(regexp)
+
+        const newTask: INote = { id: nanoid(), note: noteValue, hashtags: hashtags || [] }
+
         if (noteValue) {
             dispatch(addNote(newTask))
             setNoteValue('')
-            setHashTags([])
         }
     }
 
     return (
-        <div className={s.notesWrapper}>
+        <div>
             <Group position='center' noWrap spacing={5} grow>
                 <TextInput
                     placeholder="Enter new note...."
