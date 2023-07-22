@@ -1,6 +1,10 @@
 import { ChangeEvent, useState } from 'react'
 import { Group, Button, TextInput } from '@mantine/core'
+import { nanoid } from '@reduxjs/toolkit'
 import s from './Notes.module.css'
+import { useAppDispatch } from '../../hooks/hooks'
+import { addNote } from '../../redux/notesSlice'
+import { INote } from '../../interfaces/interfaces'
 
 export const NotesMain = () => {
     return (
@@ -12,24 +16,26 @@ export const NotesMain = () => {
 
 export const TaskAdder = () => {
     const [noteValue, setNoteValue] = useState<string>('')
-    /* const [hashtagValue, setHashTagValue] = useState<string>('') */
+    const [hashtags, setHashTags] = useState<string[]>([])
+
+    const dispatch = useAppDispatch()
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
         setNoteValue(e.currentTarget.value)
     }
 
-    /* const addTaskOnClick = (): void => {
-        const newTask = { id: nanoid(), note: noteValue, hashtagValue }
+    const addTaskOnClick = (): void => {
+        const newTask: INote = { id: nanoid(), note: noteValue, hashtags }
         if (noteValue) {
-            setTodos([...todos, newTask])
+            dispatch(addNote(newTask))
             setNoteValue('')
-            setHashTagValue()
+            setHashTags([])
         }
-    } */
+    }
 
     return (
         <div className={s.notesWrapper}>
-            <Group>
+            <Group position='center' noWrap spacing={5} grow>
                 <TextInput
                     placeholder="Enter new note...."
                     radius="md"
@@ -37,27 +43,31 @@ export const TaskAdder = () => {
                     variant="filled"
                     value={noteValue}
                     onChange={handleChange}
+                    styles={{
+                        input: {
+                            font: 'normal 400 16px/20px Roboto, sans-serif',
+                        },
+                    }}
                 />
                 <Button
-                    color="green"
+                    onClick={addTaskOnClick}
                     radius="md" size="md"
                     uppercase
+                    styles={{
+                        root: {
+                            font: 'normal 600 16px/20px Roboto, sans-serif',
+                            backgroundColor: 'rgb(25, 136, 0)',
+                            maxWidth: 122,
+                            margin: '10px 0',
+                            '&:hover': {
+                                backgroundColor: 'rgb(40, 126, 32)',
+                            },
+                        },
+                    }}
                 >
                     add note
                 </Button>
             </Group>
-            {/* <input
-                className={s.addTodoInput}
-                value={taskValue}
-                onChange={handleChange}
-                placeholder='New task...'
-                type='text'
-            />
-            <button
-                className={`${s.todoButton} ${s.addTodoButton}`}
-                onClick={addTaskOnClick}>
-                Add task
-            </button> */}
         </div>
     )
 }
