@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import { INote } from '../../interfaces/interfaces'
 import { filterNotes, selectNotes } from '../../redux/notesSlice'
 import { EmptyState } from '../empty state/EmptyState'
+import { NotesContext } from '../../context/context'
 
 //максы что я могу оптимизировать так это селект и кнопку внизу чтобы не перерендеривалась
 
@@ -31,8 +32,6 @@ export const NotesList = () => {
             <Note
                 key={noteObj.id}
                 noteObj={noteObj}
-                notes={notes}
-                setSelectValue={setSelectValue}
             />
         )
     })
@@ -41,9 +40,11 @@ export const NotesList = () => {
 
     return (
         <div className={s.notesListWrapper}>
-            <div>
-                {notesResult}
-            </div>
+            <NotesContext.Provider value={{ notes, setSelectValue }}>
+                <div>
+                    {notesResult}
+                </div>
+            </NotesContext.Provider>
             <MultiSelect
                 placeholder="Pick one"
                 value={selectValue}
@@ -56,6 +57,6 @@ export const NotesList = () => {
             <button onClick={filterNotesOnClick}>
                 filter
             </button>
-        </div>
+        </div >
     )
 }

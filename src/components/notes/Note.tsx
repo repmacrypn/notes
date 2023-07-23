@@ -3,15 +3,16 @@ import s from './Notes.module.css'
 import { INote } from '../../interfaces/interfaces'
 import { useAppDispatch } from '../../hooks/hooks'
 import { editNotes, filterNotes, removeNote } from '../../redux/notesSlice'
+import { useNotesContext } from '../../context/context'
 
 interface INoteProps {
     noteObj: INote;
-    notes: INote[];
+    /* notes: INote[]; */
     // eslint-disable-next-line no-unused-vars
-    setSelectValue(selectValue: string[]): void;
+    /* setSelectValue(selectValue: string[]): void; */
 }
 
-export const Note = ({ noteObj, setSelectValue, notes }: INoteProps) => {
+export const Note = ({ noteObj/* , setSelectValue, notes */ }: INoteProps) => {
     const dispatch = useAppDispatch()
 
     const [editNum, setEditNum] = useState<string | null>(null)
@@ -56,8 +57,8 @@ export const Note = ({ noteObj, setSelectValue, notes }: INoteProps) => {
         noteItem = (
             <NoteDivItem
                 note={noteObj}
-                setSelectValue={setSelectValue}
-                notes={notes}
+                /* setSelectValue={setSelectValue}
+                notes={notes} */
                 itemValue={noteEditValue}
                 setEditNum={setEditNum}
             />
@@ -82,16 +83,17 @@ export const Note = ({ noteObj, setSelectValue, notes }: INoteProps) => {
 
 interface NoteDivItemProps {
     note: INote;
-    notes: INote[];
+    /* notes: INote[]; */
     itemValue: string;
     // eslint-disable-next-line no-unused-vars
     setEditNum(id: string): void;
     // eslint-disable-next-line no-unused-vars
-    setSelectValue(selectValue: string[]): void;
+    /* setSelectValue(selectValue: string[]): void; */
 }
 
-const NoteDivItem = ({ note, itemValue, setEditNum, setSelectValue, notes }: NoteDivItemProps) => {
+const NoteDivItem = ({ note, itemValue, setEditNum/* , setSelectValue, notes  */ }: NoteDivItemProps) => {
     const dispatch = useAppDispatch()
+    const { notes, setSelectValue } = useNotesContext()
 
     const removeTaskOnClick = (id: string): void => {
         dispatch(removeNote(id))
