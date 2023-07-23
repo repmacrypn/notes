@@ -32,7 +32,7 @@ export const notesSlice = createSlice({
         editNotes: (state, action: PayloadAction<IEditNotesPayloadAction>) => {
             const { hashtags, id, note } = action.payload
 
-            const qq = state.notes.map((noteObj: INote) => {
+            state.notes = state.notes.map((noteObj: INote) => {
                 if (noteObj.id === id) {
                     noteObj.hashtags = hashtags
                     noteObj.note = note
@@ -40,13 +40,27 @@ export const notesSlice = createSlice({
 
                 return noteObj
             })
+        },
+        filterNotes: (state, action: PayloadAction<string[]>) => {
+            const curHashtags = action.payload
 
-            state.notes = qq
+            curHashtags.length ?
+                state.notes = state.notes.map((noteObj: INote) => {
+                    curHashtags.toString() !== noteObj.hashtags.toString() ?
+                        noteObj.isVisible = false :
+                        noteObj.isVisible = true
+
+                    return noteObj
+                }) :
+                state.notes = state.notes.map((noteObj: INote) => {
+                    noteObj.isVisible = true
+                    return noteObj
+                })
         },
     },
 })
 
-export const { addNote, removeNote, editNotes } = notesSlice.actions
+export const { addNote, removeNote, editNotes, filterNotes } = notesSlice.actions
 
 export const selectNotes = (state: RootState) => state.notes.notes
 

@@ -64,7 +64,7 @@ export const Note = ({ noteObj }: INoteProps) => {
     }, [noteItem])
 
     return (
-        <div>
+        <div className={s[`isVisible${noteObj.isVisible}`]}>
             <div>
                 {noteItem}
             </div>

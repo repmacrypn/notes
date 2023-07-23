@@ -1,12 +1,28 @@
+import { useState } from 'react'
+import { MultiSelect } from '@mantine/core'
 import s from './Notes.module.css'
 import { Note } from './Note'
-import { useAppSelector } from '../../hooks/hooks'
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import { INote } from '../../interfaces/interfaces'
-import { selectNotes } from '../../redux/notesSlice'
+import { filterNotes, selectNotes } from '../../redux/notesSlice'
 import { EmptyState } from '../empty state/EmptyState'
 
 export const NotesList = () => {
+    const dispatch = useAppDispatch()
     const notes = useAppSelector(selectNotes)
+    const [selectValue, setSelectValue] = useState<string[]>([])
+
+    const selectData = notes
+        .map((noteObj: INote) => noteObj.hashtags)
+        .reduce((previousValue: string[], currentValue: string[]) => {
+            return previousValue.concat(currentValue)
+        }, [])
+
+    const selectedDataResult = Array.from(new Set(selectData))
+
+    const filterNotesOnClick = () => {
+        dispatch(filterNotes(selectValue))
+    }
 
     const notesResult = notes.map((noteObj: INote) => {
         return (
@@ -18,12 +34,26 @@ export const NotesList = () => {
     })
 
     return (
-        <div className={s.todos}>
-            {
-                notesResult.length ?
-                    notesResult :
-                    <EmptyState />
-            }
+        <div className={s.notesListWrapper}>
+            <div>
+                {
+                    notesResult.length ?
+                        notesResult :
+                        <EmptyState />
+                }
+            </div>
+            <MultiSelect
+                placeholder="Pick one"
+                value={selectValue}
+                onChange={setSelectValue}
+                data={selectedDataResult}
+                clearable
+                maxSelectedValues={3}
+                variant="filled"
+            />
+            <button onClick={filterNotesOnClick}>
+                filter
+            </button>
         </div>
     )
 }

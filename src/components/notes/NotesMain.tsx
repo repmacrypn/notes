@@ -25,11 +25,11 @@ export const NoteAdder = () => {
         setNoteValue(e.currentTarget.value)
     }
 
-    const addTaskOnClick = (): void => {
+    const addNoteOnClick = (): void => {
         const regexp: RegExp = /(?<=(?<!\S)#)[A-Z]+/gi
         const hashtags: RegExpMatchArray | null = noteValue.match(regexp)
 
-        const newTask: INote = { id: nanoid(), note: noteValue, hashtags: hashtags || [] }
+        const newTask: INote = { id: nanoid(), note: noteValue, hashtags: hashtags || [], isVisible: true }
 
         if (noteValue) {
             dispatch(addNote(newTask))
@@ -41,7 +41,7 @@ export const NoteAdder = () => {
         <div>
             <Group position='center' noWrap spacing={5} grow>
                 <TextInput
-                    placeholder="Enter new note...."
+                    placeholder="Enter new note..."
                     radius="md"
                     size="md"
                     variant="filled"
@@ -54,7 +54,7 @@ export const NoteAdder = () => {
                     }}
                 />
                 <Button
-                    onClick={addTaskOnClick}
+                    onClick={addNoteOnClick}
                     radius="md" size="md"
                     uppercase
                     styles={{
