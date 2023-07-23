@@ -2,11 +2,12 @@ import { useState, memo } from 'react'
 import { MultiSelect } from '@mantine/core'
 import s from './Notes.module.css'
 import { Note } from './Note'
+import { EmptyState } from '../empty state/EmptyState'
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import { INote } from '../../interfaces/interfaces'
 import { filterNotes, selectNotes } from '../../redux/notesSlice'
-import { EmptyState } from '../empty state/EmptyState'
 import { NotesContext } from '../../context/context'
+import { CustomButton } from '../../styles/CustomButton'
 
 export const NotesList = () => {
     const notes = useAppSelector(selectNotes)
@@ -72,7 +73,7 @@ export const SelectNotesField = ({ notes, selectValue, setSelectValue }: ISelect
     }
 
     return (
-        <div>
+        <div className={s.noteWrapper}>
             <MultiSelect
                 placeholder="Pick one"
                 value={selectValue}
@@ -81,10 +82,27 @@ export const SelectNotesField = ({ notes, selectValue, setSelectValue }: ISelect
                 clearable
                 maxSelectedValues={3}
                 variant="filled"
+                styles={{
+                    input: {
+                        font: 'normal 500 16px/20px Roboto, sans-serif !important',
+                        minHeight: 0,
+                        maxHeight: 30,
+                        paddingBottom: 6,
+                        borderRadius: 6,
+                    },
+                    value: {
+                        font: 'normal 400 14px/20px Roboto, sans-serif',
+                        marginBottom: 8,
+                    },
+                    root: {
+                        width: '100%',
+                    },
+                }}
             />
-            <button onClick={filterNotesOnClick}>
-                filter
-            </button>
+            <CustomButton
+                text='filter'
+                handleClick={filterNotesOnClick}
+            />
         </div>
     )
 }

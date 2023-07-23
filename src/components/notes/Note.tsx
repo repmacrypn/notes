@@ -1,10 +1,12 @@
 import { ChangeEvent, useState, useRef, useEffect } from 'react'
+import { Edit } from 'tabler-icons-react'
 import s from './Notes.module.css'
 import { INote } from '../../interfaces/interfaces'
 import { useAppDispatch } from '../../hooks/hooks'
 import { editNotes, filterNotes, removeNote } from '../../redux/notesSlice'
 import { useNotesContext } from '../../context/context'
-
+import { CustomInput } from '../../styles/CustomInput'
+//вынести функцию в утилиты
 interface INoteProps {
     noteObj: INote;
 }
@@ -32,21 +34,30 @@ export const Note = ({ noteObj }: INoteProps) => {
 
     const hashtags = noteObj.hashtags.map((hashtag: string, i) => {
         return (
-            <span key={i}>{hashtag}{' '}</span>
+            <span key={i}>
+                {hashtag}{' '}
+            </span>
         )
     })
 
     if (editNum) {
         noteItem = (
-            <div>
-                <input
+            <div className={`${s.notesItemsWrapper} ${s.noteInput}`}>
+                <CustomInput
+                    value={noteEditValue}
+                    handleChange={handleItemChange}
+                    placeholder='Edit note...'
+                    variant='unstyled'
+                    inputRef={inputRef}
+                />
+                {/* <input
                     className={s.addTodoInput}
                     ref={inputRef}
                     value={noteEditValue}
                     onChange={handleItemChange}
-                />
+                /> */}
                 <button onClick={handleStopEditOnClick}>
-                    Done
+                    done
                 </button>
             </div>
         )
@@ -66,11 +77,17 @@ export const Note = ({ noteObj }: INoteProps) => {
 
     return (
         <div className={s[`isVisible${noteObj.isVisible}`]}>
-            <div>
+            <div className={s.note}>
                 {noteItem}
             </div>
-            <div>
-                {hashtags || 'No hashtags found'}
+            <div className={s.hashtags}>
+                <span className={s.hashtagsTitle}>
+                    hashtags:{' '}
+                </span>
+                {
+                    hashtags.length ?
+                        hashtags : 'not found'
+                }
             </div>
         </div>
     )
@@ -97,19 +114,25 @@ const NoteDivItem = ({ note, itemValue, setEditNum }: NoteDivItemProps) => {
     }
 
     return (
-        <div className={s.todoItemsWrapper}>
-            <div className={s.todoItemValue}>
-                {itemValue}
+        <div className={s.notesItemsWrapper}>
+            <div className={s.notesItemValue}>
+                {itemValue || 'hah that\'s empty'}
             </div>
-            <button onClick={() => setEditNum(note.id)} >
-                edit
-            </button>
-            <button
-                className={`${s.todoButton} ${s.removeTodoButton}`}
-                onClick={() => removeTaskOnClick(note.id)}
-            >
-                X
-            </button>
+            <div className={s.editNotesButtons}>
+                <button
+                    className={`${s.notesButton} ${s.editNoteButton}`}
+                    onClick={() => setEditNum(note.id)}
+                >
+                    edit{' '}
+                    <Edit className={s.icon} viewBox="0 -3.5 24 24" size={16} />
+                </button>
+                <button
+                    className={s.notesButton}
+                    onClick={() => removeTaskOnClick(note.id)}
+                >
+                    X
+                </button>
+            </div>
         </div>
     )
 }

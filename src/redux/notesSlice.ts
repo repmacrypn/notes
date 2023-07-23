@@ -1,7 +1,7 @@
-import { INote } from './../interfaces/interfaces'
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from './store'
+import { INote } from '../interfaces/interfaces'
 
 interface INotesState {
     notes: INote[];

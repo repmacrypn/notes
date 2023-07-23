@@ -1,14 +1,74 @@
 .notesWrapper {
-    height: calc(100vh - 140px);
+    min-height: calc(100vh - 140px);
     border-radius: 10px;
     border: 1px solid rgb(0, 0, 0);
-    margin: 0 12px;
+    margin: 0 12px 20px;
+}
+
+.noteWrapper {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0 5px;
+    margin-bottom: 5px;
+}
+
+.addNoteWrapper {
+    border-bottom: 1px dashed black;
+}
+
+.notesItemsWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    margin: 0 5px;
+}
+
+.notesItemValue {
+    padding: 10px 3px;
+    max-width: calc(100% - 124px);
+    overflow-wrap: break-word;
 }
 
 .isVisibletrue {
     display: block;
+    border-bottom: 1px dashed black;
 }
 
 .isVisiblefalse {
     display: none;
+}
+
+.hashtags {
+    padding: 5px;
+    margin: 0 5px 10px;
+    border-radius: 6px;
+    background-color: rgb(220, 236, 220);
+}
+
+.hashtagsTitle {
+    font-weight: 450;
+}
+
+.editNotesButtons {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.notesButton {
+    height: 25px;
+}
+
+.editNoteButton {
+    display: block;
+}
+
+.noteInput {
+    margin: 10px 5px;
+}
+
+.icon {
+    overflow: visible !important;
 }
