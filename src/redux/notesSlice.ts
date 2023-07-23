@@ -46,10 +46,14 @@ export const notesSlice = createSlice({
 
             curHashtags.length ?
                 state.notes = state.notes.map((noteObj: INote) => {
-                    curHashtags.toString() !== noteObj.hashtags.toString() ?
-                        noteObj.isVisible = false :
-                        noteObj.isVisible = true
+                    for (let i = 0; i < curHashtags.length; i++) {
+                        if (noteObj.hashtags.includes(curHashtags[i])) {
+                            noteObj.isVisible = true
+                            return noteObj
+                        }
+                    }
 
+                    noteObj.isVisible = false
                     return noteObj
                 }) :
                 state.notes = state.notes.map((noteObj: INote) => {

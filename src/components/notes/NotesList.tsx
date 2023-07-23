@@ -7,6 +7,8 @@ import { INote } from '../../interfaces/interfaces'
 import { filterNotes, selectNotes } from '../../redux/notesSlice'
 import { EmptyState } from '../empty state/EmptyState'
 
+//максы что я могу оптимизировать так это селект и кнопку внизу чтобы не перерендеривалась
+
 export const NotesList = () => {
     const dispatch = useAppDispatch()
     const notes = useAppSelector(selectNotes)
@@ -29,18 +31,18 @@ export const NotesList = () => {
             <Note
                 key={noteObj.id}
                 noteObj={noteObj}
+                notes={notes}
+                setSelectValue={setSelectValue}
             />
         )
     })
 
+    if (!notesResult.length) return <EmptyState />
+
     return (
         <div className={s.notesListWrapper}>
             <div>
-                {
-                    notesResult.length ?
-                        notesResult :
-                        <EmptyState />
-                }
+                {notesResult}
             </div>
             <MultiSelect
                 placeholder="Pick one"
