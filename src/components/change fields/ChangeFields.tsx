@@ -47,7 +47,7 @@ export const SelectNotesField = ({ notes, selectValue, setSelectValue }: ISelect
                         font: 'normal 500 16px/20px Roboto, sans-serif !important',
                         minHeight: 0,
                         maxHeight: 30,
-                        borderRadius: 6,
+                        borderRadius: 8,
                     },
                     searchInput: {
                         paddingBottom: 8,
