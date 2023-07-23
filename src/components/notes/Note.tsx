@@ -6,7 +6,8 @@ import { useAppDispatch } from '../../hooks/hooks'
 import { editNotes, filterNotes, removeNote } from '../../redux/notesSlice'
 import { useNotesContext } from '../../context/context'
 import { CustomInput } from '../../styles/CustomInput'
-//вынести функцию в утилиты
+import { getHashtags } from '../../utilites/getHashtags'
+
 interface INoteProps {
     noteObj: INote;
 }
@@ -25,8 +26,7 @@ export const Note = ({ noteObj }: INoteProps) => {
     }
 
     const handleStopEditOnClick = () => {
-        const regexp: RegExp = /(?<=(?<!\S)#)[A-Z]+/gi
-        const hashtags: RegExpMatchArray | null = noteEditValue.match(regexp)
+        const hashtags = getHashtags(noteEditValue)
 
         dispatch(editNotes({ id: noteObj.id, hashtags: hashtags || [], note: noteObj.note }))
         setEditNum(null)
@@ -50,12 +50,6 @@ export const Note = ({ noteObj }: INoteProps) => {
                     variant='unstyled'
                     inputRef={inputRef}
                 />
-                {/* <input
-                    className={s.addTodoInput}
-                    ref={inputRef}
-                    value={noteEditValue}
-                    onChange={handleItemChange}
-                /> */}
                 <button onClick={handleStopEditOnClick}>
                     done
                 </button>

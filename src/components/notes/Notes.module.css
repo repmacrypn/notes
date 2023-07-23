@@ -1,28 +1,16 @@
-.notesWrapper {
-    min-height: calc(100vh - 140px);
-    border-radius: 10px;
-    border: 1px solid rgb(0, 0, 0);
-    margin: 0 12px 20px;
-}
-
-.noteWrapper {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 0 5px;
-    margin-bottom: 5px;
-}
-
-.addNoteWrapper {
-    border-bottom: 1px dashed black;
-}
-
 .notesItemsWrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 5px;
     margin: 0 5px;
+}
+
+.notesWrapper {
+    min-height: calc(100vh - 140px);
+    border-radius: 10px;
+    border: 1px solid rgb(0, 0, 0);
+    margin: 0 12px 20px;
 }
 
 .notesItemValue {

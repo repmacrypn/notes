@@ -1,0 +1,11 @@
+.noteWrapper {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0 5px;
+    margin-bottom: 5px;
+}
+
+.addNoteWrapper {
+    border-bottom: 1px dashed black;
+}
