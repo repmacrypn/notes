@@ -1,4 +1,4 @@
-/* import { Button } from '@mantine/core' */
+import { Button } from '@mantine/core'
 
 interface ICustomAddButtonProps {
     handleClick(): void;
@@ -7,11 +7,7 @@ interface ICustomAddButtonProps {
 
 export const CustomButton = ({ handleClick, text }: ICustomAddButtonProps) => {
     return (
-        <button onClick={handleClick}>
-            {text}
-        </button >
-    )
-    {/* <Button
+        <Button
             onClick={handleClick}
             radius="md"
             size="md"
@@ -31,5 +27,6 @@ export const CustomButton = ({ handleClick, text }: ICustomAddButtonProps) => {
             }}
         >
             {text}
-        </Button> */}
+        </Button>
+    )
 }
