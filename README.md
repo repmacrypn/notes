@@ -1,27 +1,28 @@
-# React + TypeScript + Vite
+# About the application
+## Notes
+The Notes application is a simple React app that helps a typical user to keep an eye on his/her buisness
+and resembles what exactly the user has to do.
+___
+**Welcome to the Notes project! :bowtie:**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The app idea is simple:
++ an easy way to get access to your notes
++ the ability to have your buisness plan in the app
 
-Currently, two official plugins are available:
+Speaking about the app, there is only one page and it consists of a header and a main component.
+This page represents the functionality of the project. 
+___
+## *Main page: :smile:
+   1. The user can add new notes optionally but the note field mustn't be an empty string
+   2. Each note can be deleted anytime
+   3. There is an opportunity to edit each note from the notes list
+   4. The use can filter all the notes by the tags if they are provided in the note by "#"
+   5. The notes are available after the page is reloaded
+ 
+**The application was created using adaptive css :neckbeard:**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Stack:** React, React hooks(useContext, useRef, useState, useEffect), TypeScript, css-modules, redux toolkit, tabler icons, Mantine.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+**Deploy:** [https://repmacrypn.github.io/notes/]
+___
+**Created by Artem Efimovich :relieved:**
