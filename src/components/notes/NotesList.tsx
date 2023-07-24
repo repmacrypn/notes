@@ -1,7 +1,7 @@
 import { useState, memo } from 'react'
 import s from './Notes.module.css'
 import { Note } from './Note'
-import { EmptyState } from '../empty state/EmptyState'
+/* import { EmptyState } from '../empty state/EmptyState' */
 import { SelectNotesField } from '../change fields/ChangeFields'
 import { useAppSelector } from '../../hooks/hooks'
 import { INote } from '../../interfaces/interfaces'
@@ -40,7 +40,7 @@ export const NotesResult = memo(({ notes }: INotesResultProps) => {
         )
     })
 
-    if (!notesResult.length) return <EmptyState />
+    /* if (!notesResult.length) return <EmptyState /> */
 
     return (
         <div>
